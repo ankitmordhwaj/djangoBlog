@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Article(models.Model):
@@ -7,8 +8,7 @@ class Article(models.Model):
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     thumb = models.ImageField(default='default.png', blank=True)
-    # add in thumbnail later
-    # add in author later
+    author = models.ForeignKey(User, default=None, on_delete=models.DO_NOTHING)
 
 
 # this is how article look in shell and in admin
@@ -16,4 +16,4 @@ class Article(models.Model):
         return self.title
 
     def snippet(self):
-        return self.body[:100]
+        return self.body[:100] + '...'
